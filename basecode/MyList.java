@@ -9,21 +9,35 @@ public class MyList<E> implements List<E>{
      * Modelo de representacion: lista enlazada.
      *
      */
-
     private int size;
-
+    public Caja Primero;
+    
     /*
      * Constructor
      */
     public MyList() {
-	size = 0;
+	this.size = 0;
+	this.Primero=null;
     }
 
     /**
-     * Agrega un elemento al final de la lista.
+     * Agrega un elemento al principio de la lista.
      */
     public boolean add(E element) {
-	throw new UnsupportedOperationException("Not supported yet.");
+      Caja Aux = new Caja();
+      if (Aux==null)
+	  return false;
+      Aux.data=element;
+
+      if(this.size==0){
+	  this.Primero = Aux;
+      } else{
+	  Aux.siguiente=this.Primero;
+	  this.Primero = Aux;
+      }
+      this.size++;
+      return true;
+// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -31,7 +45,8 @@ public class MyList<E> implements List<E>{
      * como recien creada.
      */
     public void clear(){
-	throw new UnsupportedOperationException("Not supported yet.");
+	this.Primero=null;
+	this.size=0;
     }
 
     /**
@@ -41,6 +56,7 @@ public class MyList<E> implements List<E>{
 	ListIterator<E> iter = iterator();
 
         while (iter.hasNext()) {
+	    System.out.println("hola");
             if (iter.next().equals(element))
 		return true;
         } 
@@ -52,14 +68,15 @@ public class MyList<E> implements List<E>{
      * Determina si la lista dada es igual a la lista.
      */
     public boolean equals(Object o){
-	List list;
+	MyList list;
 
-	if (!(o instanceof List))
+	if (!(o instanceof MyList))
 	    return false;
 
-	list = (List) o;
-
-	throw new UnsupportedOperationException("Not supported yet.");
+	list = (MyList) o;
+	
+	return true;
+// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -108,7 +125,9 @@ public class MyList<E> implements List<E>{
      * Devuelve un iterador sobre la lista.
      */
     public ListIterator<E> iterator() {
-	throw new UnsupportedOperationException("Not supported yet.");
+	
+	return new MyListIterator(this);
+// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 }
 
