@@ -10,7 +10,7 @@ public class MyList<E> implements List<E>{
      *
      */
     private int size;
-    public Caja Primero;
+    private Caja Primero;
     
     /*
      * Constructor
@@ -27,17 +27,16 @@ public class MyList<E> implements List<E>{
       Caja Aux = new Caja();
       if (Aux==null)
 	  return false;
-      Aux.data=element;
+      Aux.setDato(element);
 
-      if(this.size==0){
-	  this.Primero = Aux;
+      if(size==0){
+	  Primero = Aux;
       } else{
-	  Aux.siguiente=this.Primero;
-	  this.Primero = Aux;
+	  Aux.setSig(Primero);
+	  Primero = Aux;
       }
-      this.size++;
+      size++;
       return true;
-// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -54,10 +53,12 @@ public class MyList<E> implements List<E>{
      */
     public boolean contains(Object element){
 	ListIterator<E> iter = iterator();
-
+	int i=0; E aux;
+	
         while (iter.hasNext()) {
-	    System.out.println("hola");
-            if (iter.next().equals(element))
+	    aux=iter.next();
+	    System.out.println(i+" "+aux);i++;
+            if (aux.equals(element))
 		return true;
         } 
 
@@ -86,12 +87,15 @@ public class MyList<E> implements List<E>{
 	return size == 0;
     }
 
+///////////////////// HAY QUE ARREGLAR ESTE GET ////////////////////////////
     /**
      * Retorna el elemento en la posicion pos,
      * 0 <= pos < this.getSize()
      */
-    public E get(int pos){
-	throw new UnsupportedOperationException("Not supported yet.");
+    public Caja get(int pos){
+	if (pos==0) return  Primero;
+	return Primero;
+// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -125,10 +129,9 @@ public class MyList<E> implements List<E>{
      * Devuelve un iterador sobre la lista.
      */
     public ListIterator<E> iterator() {
-	
 	return new MyListIterator(this);
-// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 }
 
+// 	throw new UnsupportedOperationException("Not supported yet.");
 // End List.

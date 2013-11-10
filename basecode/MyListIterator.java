@@ -3,12 +3,12 @@ public class MyListIterator<E> implements ListIterator<E> {
     
     
     private MyList<E> elemento;
-    private Caja actual,primero;
+    private Caja actual;
     
     // Bob
     public MyListIterator(MyList<E> lista){
 	this.elemento=lista;
-	this.actual=elemento.Primero;
+	this.actual=elemento.get(0);
     }
     
     /**
@@ -22,8 +22,8 @@ public class MyListIterator<E> implements ListIterator<E> {
      * Devuelve el elemento asociado y avanza el iterador.
      */
     public E next(){
-	E temp=(E) this.actual.data;
-	this.actual=this.actual.siguiente;
+	E temp=(E) this.actual.getDato();
+	this.actual=this.actual.getSig();
 	return temp;
     }
 

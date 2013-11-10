@@ -12,12 +12,12 @@ public class Main {
 
     public static void main(String args[]) {
     
-    Edge p1 = new Edge("hey","bobo");
+    Edge p1 = new Edge("pepe","uno");
     
-    Edge p2 = new Edge("hey","bobo");
+    Edge p2 = new Edge("pepe","dos");
     
-    Node n1 = new Node("primero");
-    Node n2 = new Node("segundo");
+    Node n1 = new Node("Nprimero");
+    Node n2 = new Node("Nsegundo");
     
     if (!n2.equals(n1))
 	System.out.println("Nodos dis");
@@ -37,22 +37,22 @@ public class Main {
 	
     if (!l1.add(p2)) 
 	System.out.println("3 dio peo");
-	
+
     if (!l1.add(n2)) 
 	System.out.println("4 dio peo");
 	
     
     if (l1.contains(p1)) 
-	System.out.println("tiene 1");
+	System.out.println("tiene p1");
 	
     if (l1.contains(p2)) 
-	System.out.println("tiene 2");
+	System.out.println("tiene p2");
     
     if (l1.contains(n1)) 
-	System.out.println("tiene 3");
+	System.out.println("tiene n1");
     
     if (l1.contains(n2)) 
-	System.out.println("tiene 4");
+	System.out.println("tiene n2");
     
     
     }
