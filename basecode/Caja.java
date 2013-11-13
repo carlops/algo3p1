@@ -8,10 +8,12 @@
      public class Caja<E>{
 	private E data;
 	private Caja siguiente;
+	private Caja anterior;
 	
 	public Caja() {
 	    data = null;
 	    siguiente=null;
+	    anterior=null;
 	}
 
 	public void setDato(E datos){
@@ -20,6 +22,14 @@
 	
 	public E getDato(){
 	    return data;
+	}
+	
+	public void  setAnt(Caja C){
+	    this.anterior = C;
+	}
+	
+	public Caja getAnt(){
+	    return this.anterior;
 	}
 	
 	public void  setSig(Caja C){

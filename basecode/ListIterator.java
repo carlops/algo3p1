@@ -1,10 +1,6 @@
 /**
  * Interface que describe un iterador sobre listas.
  * Es una interface parametrizada con tipo (clase) E.
- * 
- * Tip: 
- * Ud debe generar una clase que implemente esta interfaz
- * 
  */
 
 public interface ListIterator<E> {

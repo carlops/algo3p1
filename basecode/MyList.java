@@ -10,42 +10,88 @@ public class MyList<E> implements List<E>{
      *
      */
     private int size;
-    private Caja Primero;
+    private Caja Head;
+    private Caja Tail;
     
     /*
      * Constructor
      */
     public MyList() {
-	this.size = 0;
-	this.Primero=null;
+	size = 0;
+	Head=null;
+	Tail=null;
     }
 
     /**
-     * Agrega un elemento al principio de la lista.
+     * Devuelve el primer elemento de la lista.
+     */
+    public Caja getHead(){
+	return Head;
+    }
+    
+    /**
+     * Cambia el primer elemento de la lista.
+     */
+    public void setHead(Caja primera){
+	Head=primera;
+    }
+    
+    public Caja getTail(){
+	return Tail;
+    }
+    
+    public void setTail(Caja ultima){
+	Tail=ultima;
+    }
+
+    /**
+     * Agrega un elemento al final de la lista.
      */
     public boolean add(E element) {
+      Caja aux = new Caja();
+      if (aux==null)
+	  return false;
+	  
+      aux.setDato(element);
+      if(size==0){
+	  Head = aux;
+      } else{
+	  Tail.setSig(aux);
+	  aux.setAnt(Tail);
+      }
+      Tail = aux;
+      size++;
+      return true;
+    }
+    
+    /*
+     * Agrega un elemento al principio de la lista.
+     */
+/*  public boolean addp(E element) {
       Caja Aux = new Caja();
       if (Aux==null)
 	  return false;
       Aux.setDato(element);
 
       if(size==0){
-	  Primero = Aux;
+	  Head = Aux;
       } else{
-	  Aux.setSig(Primero);
-	  Primero = Aux;
+	  Aux.setSig(Head);
+	  Head = Aux;
       }
       size++;
       return true;
     }
-
+    */
+    
     /**
      * Elimina todos los elementos de la lista. La lista queda
      * como recien creada.
      */
     public void clear(){
-	this.Primero=null;
-	this.size=0;
+	Head=null;
+	Tail=null;
+	size=0;
     }
 
     /**
@@ -53,15 +99,11 @@ public class MyList<E> implements List<E>{
      */
     public boolean contains(Object element){
 	ListIterator<E> iter = iterator();
-	int i=0; E aux;
 	
         while (iter.hasNext()) {
-	    aux=iter.next();
-	    System.out.println(i+" "+aux);i++;
-            if (aux.equals(element))
+            if (iter.next().equals(element))
 		return true;
         } 
-
         return false;
     }
 
@@ -76,8 +118,9 @@ public class MyList<E> implements List<E>{
 
 	list = (MyList) o;
 	
+	/////// COMPARACION  VA AQUI //////
+	
 	return true;
-// 	throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -87,15 +130,20 @@ public class MyList<E> implements List<E>{
 	return size == 0;
     }
 
-///////////////////// HAY QUE ARREGLAR ESTE GET ////////////////////////////
     /**
      * Retorna el elemento en la posicion pos,
      * 0 <= pos < this.getSize()
      */
-    public Caja get(int pos){
-	if (pos==0) return  Primero;
-	return Primero;
-// 	throw new UnsupportedOperationException("Not supported yet.");
+    public E get(int pos){
+	ListIterator<E> iter = iterator();
+	int i=0; 
+	E aux=null;
+	
+        while (iter.hasNext() && i<pos+1) {
+	    aux=iter.next();
+	    i++;
+        } 
+	return aux;
     }
 
     /**
@@ -105,7 +153,6 @@ public class MyList<E> implements List<E>{
      * Utilizar esta operacion puede hacer invalido los iteradores
      * sobre this
      */
-
     public boolean remove(int pos){
   	throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -115,7 +162,16 @@ public class MyList<E> implements List<E>{
      * retorna true, sino retorna false.
      */
     public boolean remove(E element){
-	throw new UnsupportedOperationException("Not supported yet.");
+	ListIterator<E> iter = iterator();
+
+        while (iter.hasNext()) {
+            if (iter.next().equals(element)) {
+		iter.unlink();
+		size--;
+		return true;
+	    }
+        } 
+        return false;
     }
 
     /**
