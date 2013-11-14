@@ -9,12 +9,14 @@
 public class MyTree<E> {
 
     private NodoArb root;
+    private int size;
     
     /**
      * Constructor
      */
     public MyTree(){
 		root = null;
+		size = 0;
     }
     
     /**
@@ -37,7 +39,8 @@ public class MyTree<E> {
      * Agrega un elemento al arbol.
      */
     public boolean add(E element){
-    
+		
+		
     }
     
     /**

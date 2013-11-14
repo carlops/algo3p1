@@ -8,7 +8,6 @@
  */
 public abstract class DigraphXXX extends Digraph{
 
-
     /*
      * Construye un grafo vacio.
      */

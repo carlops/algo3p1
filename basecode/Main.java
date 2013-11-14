@@ -90,6 +90,13 @@ public class Main {
 	
 	if (l1.equals(l2)) System.out.println("l1 y l2 son iguales\n");
 	
+	DigraphTablaDeHash grafo = new DigraphTablaDeHash();
+	
+	boolean a=grafo.add(n1);
+	grafo.add(n2);
+	
+// 	if (grafo.contains(n1.getId())) System.out.println("\ntiene1!!!\n");
+	
     }//void main
     
 }//class Main

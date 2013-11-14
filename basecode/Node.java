@@ -41,7 +41,11 @@ public class Node {
     public String toString() {
 		return new String(id);
     }
-
+    
+    public String getId(){
+		return id;
+    }
+    
 }
 
 // End Node.java

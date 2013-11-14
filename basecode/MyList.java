@@ -154,6 +154,21 @@ public class MyList<E> implements List<E>{
 			return null;
 		return aux;
     }
+    
+    /**
+     * Retorna el elemento de la clave proporsionada,
+     */
+	public Caja getElem(Object elemento){
+		ListIterator<E> iter = iterator(); 
+		Caja aux;
+	
+        while (iter.hasNext()){
+			aux= (Caja) iter.next();
+			if (aux.getDato().equals(elemento))
+				return aux;
+        }
+		return null;
+    }
 
     /**
      * Elimina el elemento que esta en la posicion pos de la lista. Si
