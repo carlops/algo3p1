@@ -118,7 +118,12 @@ public class MyList<E> implements List<E>{
 
 	list = (MyList) o;
 	
-	/////// COMPARACION  VA AQUI //////
+	if (this.size == list.size){
+	    ListIterator<E> iter = iterator();
+	    while (iter.hasNext()){
+		if (!list.contains(iter.next())) return false;
+	    }
+	}
 	
 	return true;
     }
@@ -142,7 +147,10 @@ public class MyList<E> implements List<E>{
         while (iter.hasNext() && i<pos+1) {
 	    aux=iter.next();
 	    i++;
-        } 
+        }
+ 
+        if (i<pos+1) return null;
+        
 	return aux;
     }
 

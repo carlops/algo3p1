@@ -55,6 +55,20 @@ public class Main {
 	
 	if (l1.contains(n2)) 
 	    System.out.println("tiene n2\n");
+	    
+	//LISTA 2!!
+	MyList l2= new MyList();
+	
+	if (!l2.add(p1)) 
+	    System.out.println("p1 dio peo");
+
+	if (!l2.add(p2)) 
+	    System.out.println("p2 dio peo");
+	    
+	if (!l2.add(n1)) 
+	    System.out.println("n1 dio peo");
+	    
+	    
 	
 	int i=0;
 	while (i<l1.getSize()){
@@ -73,6 +87,9 @@ public class Main {
 	System.out.println("head:" + l1.getHead());
 	
 	System.out.println("Tail:" + l1.getTail());
-    }
+	
+	if (!l1.equals(l2)) System.out.println("l1 y l2 No son iguales\n");
+	
+    }//void main
     
-}
+}//class Main

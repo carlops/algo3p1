@@ -6,6 +6,20 @@
  */
 public interface Tree<E> {
 
+
+    /**
+     * Devuelve la raiz del arbol.
+     */
+     public NodoArb getRoot();
+     
+     /**
+     * Cambia la raiz del arbol.
+     */
+    public void setRoot(NodoArb Elemento);
+    
+    
+    /* **************************************************** */
+     
     /**
      * Agrega un elemento al arbol.
      */
