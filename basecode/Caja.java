@@ -5,7 +5,7 @@
  * Fecha: 
  */
 
-     public class Caja<E>{
+	public class Caja<E>{
 	private E data;
 	private Caja siguiente;
 	private Caja anterior;
@@ -42,7 +42,7 @@
 	
 	public boolean equals(Object o){
 	    if (!(o instanceof Caja))
-		return false;
+			return false;
 	    Caja c = (Caja) o;
 	    
 	    return (this.data.equals(c.data));  

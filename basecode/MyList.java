@@ -17,52 +17,52 @@ public class MyList<E> implements List<E>{
      * Constructor
      */
     public MyList() {
-	size = 0;
-	Head=null;
-	Tail=null;
+		size = 0;
+		Head=null;
+		Tail=null;
     }
 
     /**
      * Devuelve el primer elemento de la lista.
      */
     public Caja getHead(){
-	return Head;
+		return Head;
     }
     
     /**
      * Cambia el primer elemento de la lista.
      */
     public void setHead(Caja primera){
-	Head=primera;
+		Head=primera;
     }
     
     public Caja getTail(){
-	return Tail;
+		return Tail;
     }
     
     public void setTail(Caja ultima){
-	Tail=ultima;
+		Tail=ultima;
     }
 
     /**
      * Agrega un elemento al final de la lista.
      */
     public boolean add(E element) {
-      Caja aux = new Caja();
-      if (aux==null)
-	  return false;
+		Caja aux = new Caja();
+		if (aux==null)
+			return false;
 	  
-      aux.setDato(element);
-      if(size==0){
-	  Head = aux;
-      } else{
-	  Tail.setSig(aux);
-	  aux.setAnt(Tail);
-      }
-      Tail = aux;
-      size++;
-      return true;
-    }
+		aux.setDato(element);
+		if(size==0){
+			Head = aux;
+		} else{
+			Tail.setSig(aux);
+			aux.setAnt(Tail);
+		}
+		Tail = aux;
+		size++;
+		return true;
+	}
     
     /*
      * Agrega un elemento al principio de la lista.
@@ -89,20 +89,20 @@ public class MyList<E> implements List<E>{
      * como recien creada.
      */
     public void clear(){
-	Head=null;
-	Tail=null;
-	size=0;
+		Head=null;
+		Tail=null;
+		size=0;
     }
 
     /**
      * Determina si el elemento dado esta en la lista.
      */
     public boolean contains(Object element){
-	ListIterator<E> iter = iterator();
-	
-        while (iter.hasNext()) {
-            if (iter.next().equals(element))
-		return true;
+		ListIterator<E> iter = iterator();
+		
+		while (iter.hasNext()) {
+			if (iter.next().equals(element))
+				return true;
         } 
         return false;
     }
@@ -121,7 +121,8 @@ public class MyList<E> implements List<E>{
 	if (this.size == list.size){
 	    ListIterator<E> iter = iterator();
 	    while (iter.hasNext()){
-		if (!list.contains(iter.next())) return false;
+		if (!list.contains(iter.next())) 
+			return false;
 	    }
 	}
 	
@@ -132,7 +133,7 @@ public class MyList<E> implements List<E>{
      * Determina si la lista es vacia.
      */
     public boolean isEmpty(){
-	return size == 0;
+		return size == 0;
     }
 
     /**
@@ -140,18 +141,18 @@ public class MyList<E> implements List<E>{
      * 0 <= pos < this.getSize()
      */
     public E get(int pos){
-	ListIterator<E> iter = iterator();
-	int i=0; 
-	E aux=null;
+		ListIterator<E> iter = iterator();
+		int i=0; 
+		E aux=null;
 	
         while (iter.hasNext() && i<pos+1) {
-	    aux=iter.next();
-	    i++;
+			aux=iter.next();
+			i++;
         }
  
-        if (i<pos+1) return null;
-        
-	return aux;
+        if (i<pos+1) 
+			return null;
+		return aux;
     }
 
     /**
@@ -169,15 +170,14 @@ public class MyList<E> implements List<E>{
      * Elimina el elemento dado de la lista. Si la lista cambia,
      * retorna true, sino retorna false.
      */
-    public boolean remove(E element){
-	ListIterator<E> iter = iterator();
-
-        while (iter.hasNext()) {
-            if (iter.next().equals(element)) {
-		iter.unlink();
-		size--;
-		return true;
-	    }
+	public boolean remove(E element){
+		ListIterator<E> iter = iterator();
+		while (iter.hasNext()) {
+			if (iter.next().equals(element)) {
+				iter.unlink();
+				size--;
+				return true;
+			}
         } 
         return false;
     }
@@ -186,14 +186,14 @@ public class MyList<E> implements List<E>{
      * Retorna el numero de elementos en la lista
      */
     public int getSize(){
-	return size;
+		return size;
     }
 
     /**
      * Devuelve un iterador sobre la lista.
      */
     public ListIterator<E> iterator() {
-	return new MyListIterator(this);
+		return new MyListIterator(this);
     }
 }
 

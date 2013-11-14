@@ -4,7 +4,7 @@
  * Esta es una clase parametrizada con tipo (clase) E; i.e., el
  * arbol contiene elementos de tipo E.
  */
-import java.lang;
+// import java.lang;
 
 public class MyTree<E> {
 
@@ -14,21 +14,21 @@ public class MyTree<E> {
      * Constructor
      */
     public MyTree(){
-	root = null;
+		root = null;
     }
     
     /**
      * Devuelve la raiz del arbol.
      */
      public NodoArb getRoot(){
-	 return root;	
+		return root;	
      }
      
      /**
      * Cambia la raiz del arbol.
      */
-    public void setRoot(NodoArb Elemento){
-	root = Elemento;
+	public void setRoot(NodoArb Elemento){
+		root = Elemento;
     }
     
     /* ************************************************* */

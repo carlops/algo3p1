@@ -19,22 +19,19 @@ public class Node {
      */
     @Override
     protected Object clone() {
-	return new Node(id);
+		return new Node(id);
     }
 
     /**
      * Indica si la arista de entrada es igual a this.
      */
-    public boolean equals(Object o) {
-
-	Node d;
-
-	if (!(o instanceof Node))
-	    return false;
-
-	d = (Node) o;
-
-        return d.id.equalsIgnoreCase(id);
+	public boolean equals(Object o) {
+		Node d;
+		
+		if (!(o instanceof Node))
+			return false;
+		d = (Node) o;
+		return d.id.equalsIgnoreCase(id);
     }
 
     /**
@@ -42,7 +39,7 @@ public class Node {
      */
     @Override
     public String toString() {
-	return new String(id);
+		return new String(id);
     }
 
 }

@@ -76,8 +76,8 @@ public class Main {
 	    i++;
 	}
 	
-	if (l1.remove(p1))
-	    System.out.println("\nelimino p1\n");
+	if (l1.remove(n1))
+	    System.out.println("\nelimino n1\n");
 	
 	i=0;
 	while (i<l1.getSize()){
@@ -88,7 +88,7 @@ public class Main {
 	
 	System.out.println("Tail:" + l1.getTail());
 	
-	if (!l1.equals(l2)) System.out.println("l1 y l2 No son iguales\n");
+	if (l1.equals(l2)) System.out.println("l1 y l2 son iguales\n");
 	
     }//void main
     

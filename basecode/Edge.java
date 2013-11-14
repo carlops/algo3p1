@@ -20,10 +20,8 @@ public class Edge {
      * Crea una arista entre los vertices src y dst.
      */
     public Edge(String src, String dst) {
-    
-    this.src=src;
-    this.dst=dst;
-    
+		this.src=src;
+		this.dst=dst;
     }
 
     /**
@@ -31,41 +29,39 @@ public class Edge {
      */
     @Override
     protected Object clone() {
-	Edge ed = new Edge();
+		Edge ed = new Edge();
 
-	// se copian (clonan) todos los objetos internos, 
-	// no solo asignar las referencias
-	ed.src = new String(src);
-	ed.dst = new String(dst);
+		// se copian (clonan) todos los objetos internos, 
+		// no solo asignar las referencias
+		ed.src = new String(src);
+		ed.dst = new String(dst);
 
-	return ed;
+		return ed;
     }
 
     /**
      * Indica si la arista de entrada es igual a this.
      */
     public boolean equals(Object o) {
-
-	if (!(o instanceof Edge))
-	    return false;
-	    
-	Edge d = (Edge) o;
-	return ((src==d.src) && (dst==d.dst));
-	
+    
+		if (!(o instanceof Edge))
+			return false;
+		Edge d = (Edge) o;
+		return ((src==d.src) && (dst==d.dst));
     }
 
     /**
      * Retorna el vertice src de la arista.
      */
     public String getSrc() {
-	return src;
+		return src;
     }
 
     /**
      * Retorna el vertice dst de la arista.
      */
     public String getDst() {
-	return dst;
+		return dst;
     }
     
     /**
@@ -73,7 +69,7 @@ public class Edge {
      */
     @Override
     public String toString() {
-	return "(" + src + ", " + dst + ")";
+		return "(" + src + ", " + dst + ")";
     }
 
 }
