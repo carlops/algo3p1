@@ -57,14 +57,10 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | V |
 	*/
 	public boolean add(Node n){
-		int h;
-		h = (n.getId().hashCode()) % TAM ;
-		if (h<0) h=-h;
-		System.out.println("HASH:"+ h);
-		if (this.tabla[h].contains(n))
-			return false;
-			
+		//////////////////////////////// poner el contain de this
 		E aux = (E) new InfoNodo(n);
+		if (this.contains(n.getId()))
+			return false;
 		this.tabla[h].add(aux);
 		numVertices++;
 		return true;
@@ -105,7 +101,16 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | V |
 	*/
 	public boolean contains(String nod) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		int h;
+		Node n = new Node(nod);
+		E aux = (E) new InfoNodo(n);
+		h = (n.getId().hashCode()) % TAM ;
+		if (h<0) h=-h;
+		System.out.println("HASH:"+ h);
+		if (this.tabla[h].contains(aux))
+			return true;
+		else 
+			return false;
 	}
 
    /**
