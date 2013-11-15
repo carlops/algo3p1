@@ -18,6 +18,8 @@ public class Main {
 	
 	Node n1 = new Node("pepe");
 	Node n2 = new Node("uno");
+	Node n3 = new Node("dos");
+	
 	
 	if (n2.equals(n1))
 	    System.out.println("Nodos iguales");
@@ -67,8 +69,6 @@ public class Main {
 	    
 	if (!l2.add(n1)) 
 	    System.out.println("n1 dio peo");
-	    
-	    
 	
 	int i=0;
 	while (i<l1.getSize()){
@@ -85,7 +85,6 @@ public class Main {
 	    i++;
 	}
 	System.out.println("head:" + l1.getHead());
-	
 	System.out.println("Tail:" + l1.getTail());
 	
 	if (l1.equals(l2)) System.out.println("l1 y l2 son iguales\n");
@@ -94,12 +93,33 @@ public class Main {
 	
 	if (grafo.add(n1)) System.out.println("metio n1\n");
 	if (grafo.add(n2)) System.out.println("metio n2\n");
-	if (grafo.add(n2)) System.out.println("metio n2\n");
+	if (grafo.add(n3)) System.out.println("metio n3\n");
 	
-	System.out.println("\n" + grafo.toString() + "\n\n\n\n");
-// 	grafo.add(p1);
+	if (grafo.contains(n3.getId())) System.out.println("\ntiene n3!!!\n");
 	
-// 	if (grafo.contains(n1.getId())) System.out.println("\ntiene1!!!\n");
+	if (grafo.add(p1)) System.out.println("metio edge p1\n");
+	
+	System.out.println("\n" + grafo + "\n");
+	
+	if (grafo.contains(p1.getSrc(),p1.getDst())) System.out.println("\ntiene "+ p1);
+	
+	if (grafo.remove(p1.getSrc(),p1.getDst())) System.out.println("elimino p1\n");
+	
+// 	if (grafo.add(p1)) System.out.println("metio edge "+ p1);
+	if (grafo.add(p2)) System.out.println("metio edge "+ p2);
+	
+	System.out.println("InDegree("+n1+"): "+grafo.getInDegree(n1.getId()));
+	System.out.println("InDegree("+n2+"): "+grafo.getInDegree(n2.getId()));
+	System.out.println("InDegree("+n3+"): "+grafo.getInDegree(n3.getId()));
+	System.out.println("OutDegree("+n1+"): "+grafo.getOutDegree(n1.getId()));
+	System.out.println("OutDegree("+n2+"): "+grafo.getOutDegree(n2.getId()));
+	System.out.println("OutDegree("+n3+"): "+grafo.getOutDegree(n3.getId()));
+	
+	System.out.println("\n" + grafo + "\n");
+	
+	System.out.println("\n" + grafo.getNodes() + "\n");
+	System.out.println("\n" + grafo.getEdges() + "\n");
+	
 	
     }//void main
     

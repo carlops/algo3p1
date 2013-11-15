@@ -29,23 +29,38 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	*/
 	public boolean add(Edge e){
 		int hsuc, hpre;
-		Caja pre, suc;
-		///////////////////////////// WIP
+		InfoNodo pre, suc;
+		
 		hsuc = (e.getSrc().hashCode()) % TAM ;
 		if (hsuc<0) hsuc=-hsuc;
 		hpre = (e.getDst().hashCode()) % TAM ;
 		if (hpre<0) hpre=-hpre;
 		
-		InfoNodo aux = new InfoNodo(e.getSrc());
-		if ((suc=this.tabla[hsuc].getElem(aux))==null)
+		Node fuente =new Node(e.getSrc());
+		InfoNodo aux = new InfoNodo(fuente);
+		suc=(InfoNodo) this.tabla[hsuc].getElem(aux);
+		if (suc==null)
 			return false;
-		InfoNodo aux2 = new InfoNodo(e.getDst());
-		if ((pre=this.tabla[hpre].getElem(aux2))==null)
-			return false;
-			
-// 		System.out.println("\nSUC" + suc.getDato().toString() + "\n");
-// 		System.out.println("\npre" + pre.getDato().toString() + "\n");
 		
+		Node destino =new Node(e.getDst());
+		InfoNodo aux2 = new InfoNodo(destino);
+		pre=(InfoNodo) this.tabla[hpre].getElem(aux2);
+		if (pre==null)
+			return false;
+		
+		// Agredando en Sucesores
+		if (!suc.addSuc(e)){
+			System.out.println("\n Error agregando "+ e.getDst() + 
+			" como sucesor de " + e.getSrc());
+			return false;
+		}
+		// Agredando en Predecesores
+		if (!pre.addPre(e)){
+			System.out.println("\n Error agregando "+ e.getSrc() + 
+			" como sucesor de " + e.getDst());
+			return false;//MOSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		}
+		numEdges++;
 		return true;
 		
 	}
@@ -57,10 +72,12 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | V |
 	*/
 	public boolean add(Node n){
-		//////////////////////////////// poner el contain de this
 		E aux = (E) new InfoNodo(n);
 		if (this.contains(n.getId()))
 			return false;
+		int h = (n.getId().hashCode()) % TAM;
+		if (h<0) h=-h;
+		System.out.println("HASH:"+ h);
 		this.tabla[h].add(aux);
 		numVertices++;
 		return true;
@@ -92,7 +109,14 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public boolean contains(String src, String dst){
-	throw new UnsupportedOperationException("Not supported yet.");
+		int hsuc = (src.hashCode()) % TAM ;
+		if (hsuc<0) hsuc=-hsuc;
+		
+		Edge arista= new Edge(src,dst); 
+		Node fuente =new Node(src);
+		InfoNodo aux = new InfoNodo(fuente);
+		InfoNodo aux2 = (InfoNodo) this.tabla[hsuc].getElem(aux);
+		return aux2.containsSuc(arista);
 	}
 
    /**
@@ -106,7 +130,6 @@ public class DigraphTablaDeHash<E> extends Digraph{
 		E aux = (E) new InfoNodo(n);
 		h = (n.getId().hashCode()) % TAM ;
 		if (h<0) h=-h;
-		System.out.println("HASH:"+ h);
 		if (this.tabla[h].contains(aux))
 			return true;
 		else 
@@ -129,7 +152,19 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(???)
 	*/
 	public List<Edge> getEdges(){
-	throw new UnsupportedOperationException("Not supported yet.");
+		MyList <Edge> todosLados= new MyList();
+		for (int i=0; i<TAM; i++) {
+			Caja aux=this.tabla[i].getHead();
+			while (aux!=null) {
+				System.out.println("Estoy en: " + aux);
+				InfoNodo aux2 = (InfoNodo) aux.getDato();
+				if (aux2.getSuc()!=null)
+					System.out.println("Entre en: " + aux2.getSuc());
+					todosLados.concatenate(todosLados,(MyList<Edge>) aux2.getSuc());
+				aux=aux.getSig();
+			}
+		}
+		return todosLados;
 	}
 	
    /**
@@ -140,7 +175,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	*/
 	public Node get(String nod){
 		int h= (nod.hashCode()) % TAM;
-		Caja aux = this.tabla[h].getElem(nod);
+		Caja aux = (Caja) this.tabla[h].getElem(nod);
 		
 		return ((Node) aux.getDato());
 		
@@ -152,7 +187,16 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(???)
 	*/
 	public List<Node> getNodes(){
-	throw new UnsupportedOperationException("Not supported yet.");
+		List <Node> todosNodos= new MyList();
+		for (int i=0; i<TAM; i++) {
+			Caja aux=this.tabla[i].getHead();
+			while (aux!=null) {
+				InfoNodo aux2 = (InfoNodo) aux.getDato();
+				todosNodos.add( (Node) aux2.getDato());
+				aux=aux.getSig();
+			}
+		}
+		return todosNodos;
 	}
 
    /**
@@ -180,7 +224,16 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public List<Edge> getInEdges(String node){
-	throw new UnsupportedOperationException("Not supported yet.");
+		int h = (node.hashCode()) % TAM ;
+		if (h<0) h=-h;
+		
+		Node fuente =new Node(node);
+		InfoNodo aux = new InfoNodo(fuente);
+		InfoNodo suc=(InfoNodo) this.tabla[h].getElem(aux);
+		if (suc==null)
+			return null;
+		return suc.getPre();
+		
 	}
 
    /**
@@ -254,7 +307,14 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public int getInDegree(String node)  {
-		throw new UnsupportedOperationException("Not supported yet.");
+		int h = (node.hashCode()) % TAM ;
+		if (h<0) h=-h;
+		
+		Node nodo =new Node(node);
+		InfoNodo aux = new InfoNodo(nodo);
+		InfoNodo aux2 = (InfoNodo) this.tabla[h].getElem(aux);
+		return aux2.getPreSize();
+		
 	}
 	/**
 	* Retorna el out-degree del vertice dado. Si el
@@ -263,7 +323,13 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public int getOutDegree(String node) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		int h = (node.hashCode()) % TAM ;
+		if (h<0) h=-h;
+		
+		Node nodo =new Node(node);
+		InfoNodo aux = new InfoNodo(nodo);
+		InfoNodo aux2 = (InfoNodo) this.tabla[h].getElem(aux);
+		return aux2.getSucSize();
 	}
 
 	/**
@@ -274,7 +340,32 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public   boolean remove(String src, String dst){
-	throw new UnsupportedOperationException("Not supported yet.");
+		Edge arista= new Edge(src,dst); 
+		
+		int hsuc = (src.hashCode()) % TAM ;
+		if (hsuc<0) hsuc=-hsuc;
+		
+		Node fuente =new Node(src);
+		InfoNodo aux = new InfoNodo(fuente);
+		InfoNodo suc=(InfoNodo) this.tabla[hsuc].getElem(aux);
+		if (suc==null)
+			return false;
+		if (!suc.removeSuc(arista))
+			return false;
+		
+		int hpre = (dst.hashCode()) % TAM ;
+		if (hpre<0) hpre=-hpre;
+		
+		Node destino =new Node(dst);
+		InfoNodo aux2 = new InfoNodo(destino);
+		InfoNodo pre=(InfoNodo) this.tabla[hpre].getElem(aux2);
+		if (pre==null)
+			return false;  ////////////mosca
+		if (!pre.removePre(arista))
+			return false; //////////MOSCAAAAAAAAAAAAAAA
+		
+		numEdges--;
+		return true;
 	}
 
 	/**
@@ -291,27 +382,22 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Construye una representacion en String del grafo.
 	*/
 	public String toString() {
-		String ret = numVertices + ":" + numEdges ;
+		String ret = numVertices + ":" + numEdges +"\n";
 
-// 	ListIterator<Node> nods = getNodes().iterator();
 	
-	
-	/* * */
+	/*
 	for (int i=0; i<TAM; i++) {
-	    if (this.tabla[i]!=null){
-		int j=0;
-		MyList<E> l1=this.tabla[i];
-		while (j<l1.getSize()){
-		    System.out.println("pos " + i + ": " + l1.get(j));
-		    j++;
+		if (this.tabla[i].getHead()!=null){
+			System.out.println("pos " + i + ": " + this.tabla[i]);
 		}
-	    }
-	 }
+	}*/
+	    
+	ListIterator<Node> nods = getNodes().iterator();
 
-// 	while (nods.hasNext()) {
-// 		Node n = nods.next();
-// 		ret += "\n" + n.toString();
-// 	}       
+	while (nods.hasNext()) {
+		Node n = nods.next();
+		ret += "\n" + n.toString();
+	}       
 // 
 // 	ListIterator<Edge> edgs = getEdges().iterator();
 // 

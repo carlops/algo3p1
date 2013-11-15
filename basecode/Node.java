@@ -31,7 +31,8 @@ public class Node {
 		if (!(o instanceof Node))
 			return false;
 		d = (Node) o;
-		return d.id.equalsIgnoreCase(id);
+// 		System.out.println("\nequals de Node, comp "+ d.getId() +"con "+id);
+		return d.getId().equalsIgnoreCase(id);
     }
 
     /**
@@ -39,7 +40,7 @@ public class Node {
      */
     @Override
     public String toString() {
-		return new String(id);
+		return "Nodo: <" + this.id + ">";
     }
     
     public String getId(){

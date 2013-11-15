@@ -12,14 +12,14 @@ public class InfoNodo<E>{
 	
 	public InfoNodo() {
 		actual = null;
-		predecesores=null;
-		sucesores=null;
+		predecesores= new MyList();
+		sucesores= new MyList();
 	}
 	
 	public InfoNodo(E n) {
 		actual = n;
-		predecesores=null;
-		sucesores=null;
+		predecesores=new MyList();
+		sucesores=new MyList();
 	}
 	
 	public void setDato(E datos){
@@ -30,28 +30,53 @@ public class InfoNodo<E>{
 	    return actual;
 	}
 	
-	public void addPre(Edge C){
-	    this.predecesores.add(C);
-	}
-	
-	public void addSuc(Edge C){
-	    this.sucesores.add(C);
+	public boolean addPre(Edge C){
+	    return this.predecesores.add(C);
 	}
 	
 	public MyList<Edge> getPre(){
 		return this.predecesores;
 	}
 	
+	public int getPreSize(){
+		return predecesores.getSize();
+	}
+	
+	public boolean addSuc(Edge C){
+	    return this.sucesores.add(C);
+	}
+	
 	public MyList<Edge> getSuc(){
 		return this.sucesores;
+	}
+	
+	public int getSucSize(){
+		return sucesores.getSize();
+	}
+	
+	public boolean removeSuc(Edge C){
+		return sucesores.remove(C);
+		
+	}
+	
+	public boolean removePre(Edge C){
+		return predecesores.remove(C);
+		
 	}
 	
 	public boolean equals(Object o){
 	    if (!(o instanceof InfoNodo))
 			return false;
 	    InfoNodo c = (InfoNodo) o;
-	    
+// 	    System.out.println("\nequals de infonodo, comp "+actual+" con "+c.getDato());
 	    return (this.actual.equals(c.getDato()));  
+	}
+	
+	public boolean containsPre(Edge C){
+		return this.predecesores.contains(C);
+	}
+	public boolean containsSuc(Edge C){
+		return this.sucesores.contains(C);
 	}
 	
 	@Override

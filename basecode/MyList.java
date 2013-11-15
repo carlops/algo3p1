@@ -64,26 +64,6 @@ public class MyList<E> implements List<E>{
 		return true;
 	}
     
-    /*
-     * Agrega un elemento al principio de la lista.
-     */
-/*  public boolean addp(E element) {
-      Caja Aux = new Caja();
-      if (Aux==null)
-	  return false;
-      Aux.setDato(element);
-
-      if(size==0){
-	  Head = Aux;
-      } else{
-	  Aux.setSig(Head);
-	  Head = Aux;
-      }
-      size++;
-      return true;
-    }
-    */
-    
     /**
      * Elimina todos los elementos de la lista. La lista queda
      * como recien creada.
@@ -93,41 +73,40 @@ public class MyList<E> implements List<E>{
 		Tail=null;
 		size=0;
     }
-
-    /**
-     * Determina si el elemento dado esta en la lista.
-     */
-    public boolean contains(Object element){
+	
+   /**
+	* Determina si el elemento dado esta en la lista.
+	*/
+	public boolean contains(Object element){
 		ListIterator<E> iter = iterator();
 		
 		while (iter.hasNext()) {
 			if (iter.next().equals(element))
 				return true;
-        } 
-        return false;
-    }
-
-    /**
-     * Determina si la lista dada es igual a la lista.
-     */
-    public boolean equals(Object o){
-	MyList list;
-
-	if (!(o instanceof MyList))
-	    return false;
-
-	list = (MyList) o;
-	
-	if (this.size == list.size){
-	    ListIterator<E> iter = iterator();
-	    while (iter.hasNext()){
-		if (!list.contains(iter.next())) 
-			return false;
-	    }
+		} 
+		return false;
 	}
-	
-	return true;
-    }
+
+   /**
+	* Determina si la lista dada es igual a la lista.
+	*/
+	public boolean equals(Object o){
+		MyList list;
+		
+		if (!(o instanceof MyList))
+			return false;
+		
+		list = (MyList) o;
+		
+		if (this.size == list.size){
+			ListIterator<E> iter = iterator();
+			while (iter.hasNext()){
+				if (!list.contains(iter.next())) 
+					return false;
+			}
+		}
+		return true;
+	}
 
     /**
      * Determina si la lista es vacia.
@@ -144,31 +123,52 @@ public class MyList<E> implements List<E>{
 		ListIterator<E> iter = iterator();
 		int i=0; 
 		E aux=null;
-	
-        while (iter.hasNext() && i<pos+1) {
+		
+		while (iter.hasNext() && i<pos+1) {
 			aux=iter.next();
 			i++;
-        }
+		}
  
         if (i<pos+1) 
 			return null;
-	return aux;
+		return aux;
     }
     
     /**
      * Retorna el elemento de la clave proporsionada,
      */
-	public Caja getElem(Object elemento){
+     @SuppressWarnings("unchecked")
+	public E getElem(Object elemento){
 		ListIterator<E> iter = iterator(); 
-		Caja aux;
-	
+		E aux=null;
+		
+// 		System.out.println("\n Lo que estoy buscando:" + elemento );
         while (iter.hasNext()){
-			aux= (Caja) iter.next();
-			if (aux.getDato().equals(elemento))
+			aux= iter.next();
+// 			System.out.println("\n GetElem:" + aux );
+			if (elemento.equals(aux)){
+// 				System.out.println("\n Lo encontreeeeeeeeeeeeeeeeeeeeeeeee");
 				return aux;
+			}
         }
+//         System.out.println("\n No encontre nada en getElem");
 		return null;
     }
+    
+   /**
+	*
+	*concatena dos listas, retorna l1 + l2
+	*/
+	
+    public MyList<E> concatenate(MyList<E> l1,MyList<E> l2){
+		
+		if (l1.getHead()==null) return l2;
+		if (l2.getHead()==null) return l1;
+		l1.add((E)l2.getHead().getDato());
+		l1.setTail(l2.getTail());
+		return l1;
+    }
+    
 
     /**
      * Elimina el elemento que esta en la posicion pos de la lista. Si
@@ -203,6 +203,17 @@ public class MyList<E> implements List<E>{
     public int getSize(){
 		return size;
     }
+    
+	public String toString() {
+		ListIterator<E> iter = iterator();
+		String ret;
+		ret="Lista:\n";
+		while (iter.hasNext()) {
+			ret+="\t"+iter.next()+"\n";
+		}
+		return ret;
+	}
+    
 
     /**
      * Devuelve un iterador sobre la lista.
