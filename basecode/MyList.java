@@ -152,7 +152,7 @@ public class MyList<E> implements List<E>{
  
         if (i<pos+1) 
 			return null;
-		return aux;
+	return aux;
     }
     
     /**

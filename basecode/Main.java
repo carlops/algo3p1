@@ -16,8 +16,8 @@ public class Main {
 	
 	Edge p2 = new Edge("pepe","dos");
 	
-	Node n1 = new Node("Nprimero");
-	Node n2 = new Node("Nsegundo");
+	Node n1 = new Node("pepe");
+	Node n2 = new Node("uno");
 	
 	if (n2.equals(n1))
 	    System.out.println("Nodos iguales");
@@ -92,8 +92,12 @@ public class Main {
 	
 	DigraphTablaDeHash grafo = new DigraphTablaDeHash();
 	
-	boolean a=grafo.add(n1);
-	grafo.add(n2);
+	if (grafo.add(n1)) System.out.println("metio n1\n");
+	if (grafo.add(n2)) System.out.println("metio n2\n");
+	if (grafo.add(n2)) System.out.println("metio n2\n");
+	
+	System.out.println("\n" + grafo.toString() + "\n\n\n\n");
+// 	grafo.add(p1);
 	
 // 	if (grafo.contains(n1.getId())) System.out.println("\ntiene1!!!\n");
 	

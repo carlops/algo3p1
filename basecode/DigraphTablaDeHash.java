@@ -29,14 +29,23 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	*/
 	public boolean add(Edge e){
 		int hsuc, hpre;
+		Caja pre, suc;
 		///////////////////////////// WIP
 		hsuc = (e.getSrc().hashCode()) % TAM ;
+		if (hsuc<0) hsuc=-hsuc;
 		hpre = (e.getDst().hashCode()) % TAM ;
-		if (this.tabla[hsuc].getElem(e.getSrc())==null)
+		if (hpre<0) hpre=-hpre;
+		
+		InfoNodo aux = new InfoNodo(e.getSrc());
+		if ((suc=this.tabla[hsuc].getElem(aux))==null)
 			return false;
-		if (!this.tabla[hpre].contains(e.getDst()))
+		InfoNodo aux2 = new InfoNodo(e.getDst());
+		if ((pre=this.tabla[hpre].getElem(aux2))==null)
 			return false;
 			
+// 		System.out.println("\nSUC" + suc.getDato().toString() + "\n");
+// 		System.out.println("\npre" + pre.getDato().toString() + "\n");
+		
 		return true;
 		
 	}
@@ -57,6 +66,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 			
 		E aux = (E) new InfoNodo(n);
 		this.tabla[h].add(aux);
+		numVertices++;
 		return true;
 	}
 
@@ -194,7 +204,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 		return preds;
 	}
 
-	/*
+	/**
 	* Retorna la lista de lados que tienen al vertice dado como
 	* origen. Si el vertice no existe, retorna null.
 	*
@@ -204,7 +214,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	/*
+	/**
 	* Retorna los sucesores del nodo con id node
 	*
 	* Complejidad: O(p), p << | E |
@@ -232,7 +242,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	return sucs;
 	}
 
-	/*
+	/**
 	* Retorna el in-degree del vertice dado. Si el
 	* vertice no existe, retorna -1.
 	*
@@ -241,7 +251,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	public int getInDegree(String node)  {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-	/*
+	/**
 	* Retorna el out-degree del vertice dado. Si el
 	* vertice no existe, retorna -1.
 	*
@@ -251,7 +261,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	/*
+	/**
 	* Remueve la arista del grafo que conecta a los vertices src y
 	* dst. Si el grafo no cambia, retorna false. Si el grafo cambia,
 	* retorna true.
@@ -262,7 +272,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	/*
+	/**
 	* Remueve el nodo del grafo con id nod. Si el grafo no cambia,
 	* retorna false. Si el grafo cambia, retorna true.
 	*
@@ -272,25 +282,38 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	/*
+	/**
 	* Construye una representacion en String del grafo.
 	*/
 	public String toString() {
 		String ret = numVertices + ":" + numEdges ;
 
-	ListIterator<Node> nods = getNodes().iterator();
+// 	ListIterator<Node> nods = getNodes().iterator();
+	
+	
+	/* * */
+	for (int i=0; i<TAM; i++) {
+	    if (this.tabla[i]!=null){
+		int j=0;
+		MyList<E> l1=this.tabla[i];
+		while (j<l1.getSize()){
+		    System.out.println("pos " + i + ": " + l1.get(j));
+		    j++;
+		}
+	    }
+	 }
 
-	while (nods.hasNext()) {
-		Node n = nods.next();
-		ret += "\n" + n.toString();
-	}       
-
-	ListIterator<Edge> edgs = getEdges().iterator();
-
-	while (edgs.hasNext()) {
-		Edge e = edgs.next();
-		ret += "\n" + e.toString();
-	}       
+// 	while (nods.hasNext()) {
+// 		Node n = nods.next();
+// 		ret += "\n" + n.toString();
+// 	}       
+// 
+// 	ListIterator<Edge> edgs = getEdges().iterator();
+// 
+// 	while (edgs.hasNext()) {
+// 		Edge e = edgs.next();
+// 		ret += "\n" + e.toString();
+// 	}       
 
 		return ret;
 	}
