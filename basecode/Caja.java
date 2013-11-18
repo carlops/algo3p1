@@ -48,6 +48,7 @@ public class Caja<E>{
 	    return (this.data.equals(c.data));  
 	}
 	
+	
 	@Override
 	public String toString() { 
 	    return "Caja: <" + this.data + ">";  

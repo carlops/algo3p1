@@ -104,8 +104,9 @@ public class MyList<E> implements List<E>{
 				if (!list.contains(iter.next())) 
 					return false;
 			}
+			return true; // Recorrio toda la lista y son iguales
 		}
-		return true;
+		return false;//tamano diferentes, listas distintas
 	}
 
     /**
@@ -129,45 +130,11 @@ public class MyList<E> implements List<E>{
 			i++;
 		}
  
-        if (i<pos+1) 
+		if (i<pos+1) 
 			return null;
 		return aux;
     }
     
-    /**
-     * Retorna el elemento de la clave proporsionada,
-     */
-     @SuppressWarnings("unchecked")
-	public E getElem(Object elemento){
-		ListIterator<E> iter = iterator(); 
-		E aux=null;
-		
-// 		System.out.println("\n Lo que estoy buscando:" + elemento );
-        while (iter.hasNext()){
-			aux= iter.next();
-// 			System.out.println("\n GetElem:" + aux );
-			if (elemento.equals(aux)){
-// 				System.out.println("\n Lo encontreeeeeeeeeeeeeeeeeeeeeeeee");
-				return aux;
-			}
-        }
-//         System.out.println("\n No encontre nada en getElem");
-		return null;
-    }
-    
-   /**
-	*
-	*concatena dos listas, retorna l1 + l2
-	*/
-	
-    public MyList<E> concatenate(MyList<E> l1,MyList<E> l2){
-		
-		if (l1.getHead()==null) return l2;
-		if (l2.getHead()==null) return l1;
-		l1.add((E)l2.getHead().getDato());
-		l1.setTail(l2.getTail());
-		return l1;
-    }
     
 
     /**
@@ -178,7 +145,16 @@ public class MyList<E> implements List<E>{
      * sobre this
      */
     public boolean remove(int pos){
-  	throw new UnsupportedOperationException("Not supported yet.");
+		if (size<pos) return false;
+		ListIterator<E> iter = iterator();
+		int i=0; 
+		
+		while (iter.hasNext() && i<pos+1) {
+			iter.next();
+			i++;
+		}
+		iter.unlink();
+		return true;
     }
 
     /**
@@ -190,7 +166,7 @@ public class MyList<E> implements List<E>{
 		while (iter.hasNext()) {
 			if (iter.next().equals(element)) {
 				iter.unlink();
-				size--;
+				if (size>0) size--;
 				return true;
 			}
         } 
@@ -203,7 +179,57 @@ public class MyList<E> implements List<E>{
     public int getSize(){
 		return size;
     }
+
+    /**
+     * Devuelve un iterador sobre la lista.
+     */
+    public ListIterator<E> iterator() {
+		return new MyListIterator(this);
+    }
     
+    
+       /** ----------- Funciones Adicionales ------------ 
+        * Funciones adicionales a las requeridas por implementar
+        */
+	
+       /**
+	* Copia todos los elementos de la lista this en una nueva y
+	* la retorna
+	*/
+	@SuppressWarnings("unchecked")
+	public MyList<E> clone(){
+		if (this.getHead()==null)//lista a clonar no es nula
+			return this;
+			
+		// Ciclo clonador
+		MyList<E> aux = new MyList();
+		Caja cajaAux;
+		ListIterator<E> iter = iterator();
+		
+		while (iter.hasNext()) {
+			aux.add((E)((E)iter.next()).clona());
+		}
+		return aux;
+	}
+    
+       /**
+	* concatena dos listas, retorna l1 + this (sin repeticiones)
+	* y lo retorna en una lista nueva
+	*/
+	
+	public void concatenate(MyList<E> l1){
+		Caja cajaAux = new Caja();
+		cajaAux= l1.getHead();
+		while (cajaAux!=null){
+			this.add((E)cajaAux.getDato());
+			cajaAux=cajaAux.getSig();
+		}
+    }
+    
+	/**
+	* Retorna la representacion lista a imprimir en un String
+	*/
+	@Override
 	public String toString() {
 		ListIterator<E> iter = iterator();
 		String ret;
@@ -214,14 +240,28 @@ public class MyList<E> implements List<E>{
 		return ret;
 	}
     
-
-    /**
-     * Devuelve un iterador sobre la lista.
-     */
-    public ListIterator<E> iterator() {
-		return new MyListIterator(this);
+	/**
+	* Retorna busca y el elemento de la clave proporsionada,
+	* si no lo encuentra retorna null
+	*/
+	@SuppressWarnings("unchecked")
+	public E getElem(Object elemento){
+		ListIterator<E> iter = iterator(); 
+		E aux=null;
+		
+// 		System.out.println("\n Lo que estoy buscando:" + elemento );
+	while (iter.hasNext()){
+			aux= iter.next();
+// 			System.out.println("\n GetElem:" + aux );
+			if (elemento.equals(aux)){
+// 				System.out.println("\n Lo encontreeeeeeeeeeeeeeeeeeeeeeeee");
+				return aux;
+			}
+	}
+//         System.out.println("\n No encontre nada en getElem");
+		return null;
     }
-}
-
-// 	throw new UnsupportedOperationException("Not supported yet.");
-// End List.
+    
+    /** ------------ Fin de Funciones Adicionales ------------ */
+    
+}// End List.

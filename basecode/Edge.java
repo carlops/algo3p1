@@ -27,8 +27,7 @@ public class Edge {
     /**
      * Retorna una nueva arista que es copia de this.
      */
-    @Override
-    protected Object clone() {
+    public Edge clona() {
 		Edge ed = new Edge();
 
 		// se copian (clonan) todos los objetos internos, 
@@ -69,7 +68,7 @@ public class Edge {
      */
     @Override
     public String toString() {
-		return "(" + src + ", " + dst + ")";
+		return "Edge: (" + src + ", " + dst + ")";
     }
 
 }

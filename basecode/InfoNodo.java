@@ -38,6 +38,10 @@ public class InfoNodo<E>{
 		return this.predecesores;
 	}
 	
+	public void setPre(MyList<Edge> lista){
+		predecesores=lista;
+	}
+	
 	public int getPreSize(){
 		return predecesores.getSize();
 	}
@@ -48,6 +52,10 @@ public class InfoNodo<E>{
 	
 	public MyList<Edge> getSuc(){
 		return this.sucesores;
+	}
+	
+	public void setSuc(MyList<Edge> lista){
+		sucesores=lista;
 	}
 	
 	public int getSucSize(){
@@ -78,6 +86,14 @@ public class InfoNodo<E>{
 	public boolean containsSuc(Edge C){
 		return this.sucesores.contains(C);
 	}
+	
+	public MyList<E> clone(){
+		InfoNodo aux = new InfoNodo();
+		aux.setSuc(this.sucesores.clone());
+		aux.setPre(this.predecesores.clone());
+		aux.setDato((E) ((Node)actual).clona());
+	}
+	
 	
 	@Override
 	public String toString() { 

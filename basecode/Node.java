@@ -17,8 +17,7 @@ public class Node {
     /**
      * Retorna una nueva arista que es copia de this.
      */
-    @Override
-    protected Object clone() {
+    public Node clona() {
 		return new Node(id);
     }
 
@@ -45,6 +44,14 @@ public class Node {
     
     public String getId(){
 		return id;
+    }
+    
+    /**
+     * Retorna el codigo hash para un nodo.
+     */
+    @Override
+    public int hashCode() {
+		return this.id.hashCode();
     }
     
 }
