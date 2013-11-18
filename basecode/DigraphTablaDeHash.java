@@ -110,14 +110,12 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | E |
 	*/
 	public boolean contains(String src, String dst){
-		int hsuc = (src.hashCode()) % TAM ;
-		if (hsuc<0) hsuc=-hsuc;
-		
+		int hsuc = getPosition(src);
 		Edge arista= new Edge(src,dst); 
-		Node fuente =new Node(src);
-		InfoNodo aux = new InfoNodo(fuente);
-		InfoNodo aux2 = (InfoNodo) this.tabla[hsuc].getElem(aux);
-		return aux2.containsSuc(arista);
+		InfoNodo aux = getInfoNodo(src,this.tabla[hsuc]);
+		if (aux!=null)
+			return aux.containsSuc(arista);
+		return false;
 	}
 
    /**
@@ -126,11 +124,9 @@ public class DigraphTablaDeHash<E> extends Digraph{
 	* Complejidad: O(p), p << | V |
 	*/
 	public boolean contains(String nod) {
-		int h;
+		int h = getPosition(nod);
 		Node n = new Node(nod);
 		E aux = (E) new InfoNodo(n);
-		h = (n.getId().hashCode()) % TAM ;
-		if (h<0) h=-h;
 		if (this.tabla[h].contains(aux))
 			return true;
 		else 
@@ -376,7 +372,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 			Edge e = suc.next();
 			//Se eliminan las aristas del grafo
 			if (!remove(e.getSrc(),e.getDst())){
-			    System.out.println("\nError Eliminando");
+			    System.out.println("\nError Eliminando"+e);
 			    return false;
 			}
 			// Se busca el vertice sucesor en el grafo
@@ -389,7 +385,7 @@ public class DigraphTablaDeHash<E> extends Digraph{
 		while (pre.hasNext()){
 			Edge e2 = pre.next();
 			if (!remove(e2.getSrc(),e2.getDst())){
-			    System.out.println("\nError Elimando");
+			    System.out.println("\nError Elimando"+e2);
 			    return false;////MOSCAAAAAAAAAAAAAAA
 			}
 		}

@@ -196,18 +196,17 @@ public class MyList<E> implements List<E>{
 	* Copia todos los elementos de la lista this en una nueva y
 	* la retorna
 	*/
-	@SuppressWarnings("unchecked")
 	public MyList<E> clone(){
 		if (this.getHead()==null)//lista a clonar no es nula
 			return this;
 			
 		// Ciclo clonador
 		MyList<E> aux = new MyList();
-		Caja cajaAux;
+		Caja cajaAux=null;
 		ListIterator<E> iter = iterator();
 		
 		while (iter.hasNext()) {
-			aux.add((E)((E)iter.next()).clona());
+			aux.add((E)(iter.next()));
 		}
 		return aux;
 	}
@@ -249,16 +248,12 @@ public class MyList<E> implements List<E>{
 		ListIterator<E> iter = iterator(); 
 		E aux=null;
 		
-// 		System.out.println("\n Lo que estoy buscando:" + elemento );
 	while (iter.hasNext()){
 			aux= iter.next();
-// 			System.out.println("\n GetElem:" + aux );
 			if (elemento.equals(aux)){
-// 				System.out.println("\n Lo encontreeeeeeeeeeeeeeeeeeeeeeeee");
 				return aux;
 			}
 	}
-//         System.out.println("\n No encontre nada en getElem");
 		return null;
     }
     

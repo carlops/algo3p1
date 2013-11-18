@@ -17,7 +17,8 @@ public class Node {
     /**
      * Retorna una nueva arista que es copia de this.
      */
-    public Node clona() {
+     @Override
+    protected Node clone() {
 		return new Node(id);
     }
 

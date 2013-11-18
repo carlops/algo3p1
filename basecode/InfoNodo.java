@@ -87,11 +87,12 @@ public class InfoNodo<E>{
 		return this.sucesores.contains(C);
 	}
 	
-	public MyList<E> clone(){
+	public InfoNodo clone(){
 		InfoNodo aux = new InfoNodo();
 		aux.setSuc(this.sucesores.clone());
 		aux.setPre(this.predecesores.clone());
-		aux.setDato((E) ((Node)actual).clona());
+		aux.setDato((E) ((Node)actual).clone());
+		return aux;
 	}
 	
 	

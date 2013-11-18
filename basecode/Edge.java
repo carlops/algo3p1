@@ -27,7 +27,8 @@ public class Edge {
     /**
      * Retorna una nueva arista que es copia de this.
      */
-    public Edge clona() {
+     @Override
+    protected Edge clone() {
 		Edge ed = new Edge();
 
 		// se copian (clonan) todos los objetos internos, 
