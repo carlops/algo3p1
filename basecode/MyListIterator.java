@@ -1,8 +1,11 @@
 /**
- * Clase que implementa la interfaz ListIterator
- * Es una interface parametrizada con tipo (clase) E
- * lista contiene elementos de tipo E
- * la lista es doble enlazada
+ * Archivo: MyList.java
+ * Descripcion: Clase que implementa la interfaz ListIterator
+ *  Es una interface parametrizada con tipo (clase) E
+ *  lista contiene elementos de tipo E
+ *  la lista es doble enlazada
+ * Autor: Alejandro Guevara 09-10971 y Carlo Polisano 09-10672
+ * Fecha: 18/11/13
  */
 public class MyListIterator<E> implements ListIterator<E> {
     
@@ -42,7 +45,8 @@ public class MyListIterator<E> implements ListIterator<E> {
 			if (actual==null){ 
 				//es el ultimo elemento de la lista
 				this.elemento.getTail().getAnt().setSig(null);
-				this.elemento.setTail(this.elemento.getTail().getAnt());
+						//el anterior del ultimo ahora apunta a null 
+				this.elemento.setTail(this.elemento.getTail().getAnt());//
 			} else {
 				if (actual.getAnt().getAnt()==null) {
 					//es el primer elemento de la lista

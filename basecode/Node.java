@@ -5,7 +5,7 @@
  * Fecha: Sep 2010
  */
 
-public class Node {
+public class Node implements Cloneable {
 
     // Se asume que el id es unico
     private String id = null;
@@ -31,7 +31,6 @@ public class Node {
 		if (!(o instanceof Node))
 			return false;
 		d = (Node) o;
-// 		System.out.println("\nequals de Node, comp "+ d.getId() +"con "+id);
 		return d.getId().equalsIgnoreCase(id);
     }
 
@@ -40,7 +39,7 @@ public class Node {
      */
     @Override
     public String toString() {
-		return "Nodo: <" + this.id + ">";
+		return "<" + this.id + ">";
     }
     
     public String getId(){

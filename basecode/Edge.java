@@ -5,7 +5,7 @@
  * Fecha: Sep 2010
  */
 
-public class Edge {
+public class Edge implements Cloneable{
 
     private String src = null;
     private String dst = null;
@@ -28,7 +28,7 @@ public class Edge {
      * Retorna una nueva arista que es copia de this.
      */
      @Override
-    protected Edge clone() {
+    public Edge clone() {
 		Edge ed = new Edge();
 
 		// se copian (clonan) todos los objetos internos, 
@@ -44,10 +44,11 @@ public class Edge {
      */
     public boolean equals(Object o) {
     
-		if (!(o instanceof Edge))
+		if (!(o instanceof Edge)){
 			return false;
+			}
 		Edge d = (Edge) o;
-		return ((src==d.src) && (dst==d.dst));
+		return ((src.equals(d.src)) && (dst.equals(d.dst)));
     }
 
     /**
@@ -69,10 +70,8 @@ public class Edge {
      */
     @Override
     public String toString() {
-		return "Edge: (" + src + ", " + dst + ")";
+		return "(" + src + ", " + dst + ")";
     }
 
-}
-//         throw new UnsupportedOperationException("Not supported yet.");
-
 // End Edge.java
+}
